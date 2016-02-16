@@ -9,7 +9,7 @@ MAINTAINER Jordan Jethwa
 ENV DEBIAN_FRONTEND noninteractive
 ENV SERVER_URL https://localhost:4443
 
-RUN apt-get -qq update && apt-get -qqy upgrade && apt-get -qqy install --no-install-recommends bash supervisor procps sudo ca-certificates openjdk-7-jre-headless openssh-client mysql-server mysql-client pwgen curl git && apt-get clean
+RUN apt-get -qq update && apt-get -qqy upgrade && apt-get -qqy install --no-install-recommends bash supervisor procps sudo ca-certificates openjdk-7-jre-headless openssh-client mysql-client pwgen curl git && apt-get clean
 
 ADD http://dl.bintray.com/rundeck/rundeck-deb/rundeck-2.6.2-1-GA.deb /tmp/rundeck.deb
 
@@ -23,11 +23,11 @@ RUN chown rundeck:rundeck /var/lib/rundeck/.ssh
 
 # Supervisor
 RUN mkdir -p /var/log/supervisor && mkdir -p /opt/supervisor
-RUN chmod u+x /opt/supervisor/rundeck && chmod u+x /opt/supervisor/mysql_supervisor
+RUN chmod u+x /opt/supervisor/rundeck
 
 EXPOSE 4440 4443
 
-VOLUME  ["/etc/rundeck", "/var/rundeck", "/var/lib/rundeck", "/var/lib/mysql", "/var/log/rundeck"]
+VOLUME  ["/etc/rundeck", "/var/rundeck", "/var/lib/rundeck", "/var/log/rundeck"]
 
 # Start Supervisor
 ENTRYPOINT ["/opt/run"]
